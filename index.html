@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GVRR LTD | Technology &amp; Information Systems Consultancy — London</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Classic Editorial Typography: Playfair Display, Libre Baskerville & Source Sans 3 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        heritage: {
+                            950: '#071c13',
+                            900: '#0d2b1e',
+                            800: '#143d2b',
+                            700: '#1e523b',
+                        },
+                        parchment: {
+                            50: '#fcfbf7',
+                            100: '#f7f4eb',
+                            200: '#ede7d7',
+                            300: '#dfd6c0',
+                        },
+                        brass: {
+                            300: '#d4be8a',
+                            400: '#bfa05a',
+                            500: '#a3823d',
+                            600: '#85672a',
+                        },
+                        ink: {
+                            900: '#16211c',
+                            700: '#35453d',
+                            500: '#5b6b63',
+                        }
+                    },
+                    fontFamily: {
+                        display: ['"Playfair Display"', 'Georgia', 'serif'],
+                        serif: ['"Libre Baskerville"', 'Georgia', 'serif'],
+                        sans: ['"Source Sans 3"', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Fixed base reset & classic editorial scroll behavior */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: #071c13;
+        }
+
+        body {
+            font-family: 'Source Sans 3', system-ui, sans-serif;
+            background-color: #f7f4eb;
+            color: #16211c;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Multi-page view transitions */
+        .page {
+            display: none;
+            min-height: calc(100vh - 150px);
+            animation: classicReveal 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes classicReveal {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Classic double-line editorial framing */
+        .double-frame {
+            border: 1px solid #dfd6c0;
+            outline: 1px solid #dfd6c0;
+            outline-offset: -6px;
+        }
+
+        .double-frame-dark {
+            border: 1px solid rgba(191, 160, 90, 0.35);
+            outline: 1px solid rgba(191, 160, 90, 0.2);
+            outline-offset: -6px;
+        }
+
+        /* Active navigation indicator */
+        .nav-btn {
+            position: relative;
+        }
+
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #bfa05a;
+            transition: width 0.3s ease;
+        }
+
+        .nav-btn:hover::after,
+        .nav-btn.active::after {
+            width: 100%;
+        }
+
+        .nav-btn.active {
+            color: #d4be8a;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen selection:bg-heritage-800 selection:text-parchment-100">
+
+    <!-- TOP CORPORATE REGISTRY BAR -->
+    <div class="bg-heritage-950 text-parchment-300 text-xs tracking-widest uppercase border-b border-brass-500/25">
+        <div class="max-w-7xl mx-auto px-6 sm:px-10 py-2.5 flex flex-col sm:flex-row justify-between items-center gap-2 text-center sm:text-left">
+            <span class="font-sans font-medium">Registered in England &amp; Wales • No. 17574073</span>
+            <span class="font-sans text-brass-300">London, United Kingdom</span>
+        </div>
+    </div>
+
+    <!-- MAIN CLASSIC HEADER & NAVIGATION -->
+    <header class="bg-heritage-900 text-parchment-50 border-b-2 border-brass-500/40 sticky top-0 z-40 shadow-md">
+        <div class="max-w-7xl mx-auto px-6 sm:px-10 py-5 flex flex-col md:flex-row justify-between items-center gap-5">
+            
+            <!-- Monogram & Wordmark -->
+            <button onclick="showPage('home')" class="flex items-center gap-4 text-left group focus:outline-none cursor-pointer">
+                <div class="w-11 h-11 border border-brass-400/70 flex items-center justify-center bg-heritage-950/60 p-1">
+                    <div class="w-full h-full border border-brass-400/30 flex items-center justify-center font-display text-lg font-bold tracking-wider text-brass-300 group-hover:text-parchment-50 transition-colors">
+                        G
+                    </div>
+                </div>
+                <div>
+                    <div class="font-display text-2xl sm:text-[26px] font-semibold tracking-[0.14em] text-parchment-50 leading-none">
+                        GVRR <span class="text-brass-300 font-normal">LTD</span>
+                    </div>
+                    <div class="text-[11px] uppercase tracking-[0.22em] text-parchment-300/80 mt-1.5 font-sans">
+                        Technology &amp; Consultancy
+                    </div>
+                </div>
+            </button>
+
+            <!-- Editorial Navigation Links -->
+            <nav aria-label="Primary Navigation" class="flex flex-wrap justify-center items-center gap-7 sm:gap-10">
+                <button class="nav-btn active text-xs sm:text-sm uppercase tracking-[0.18em] font-semibold text-parchment-100 hover:text-brass-300 py-1.5 transition-colors cursor-pointer" data-page="home" onclick="showPage('home', this)">
+                    Home
+                </button>
+                <button class="nav-btn text-xs sm:text-sm uppercase tracking-[0.18em] font-semibold text-parchment-100 hover:text-brass-300 py-1.5 transition-colors cursor-pointer" data-page="services" onclick="showPage('services', this)">
+                    Services
+                </button>
+                <button class="nav-btn text-xs sm:text-sm uppercase tracking-[0.18em] font-semibold text-parchment-100 hover:text-brass-300 py-1.5 transition-colors cursor-pointer" data-page="about" onclick="showPage('about', this)">
+                    About Us
+                </button>
+                <button class="nav-btn text-xs sm:text-sm uppercase tracking-[0.18em] font-semibold text-parchment-100 hover:text-brass-300 py-1.5 transition-colors cursor-pointer" data-page="contact" onclick="showPage('contact', this)">
+                    Contact
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow">
+
+        <!-- ========================================================= -->
+        <!-- PAGE 1: HOME                                              -->
+        <!-- ========================================================= -->
+        <section id="home" class="page active">
+            
+            <!-- Classic Architectural Hero -->
+            <div class="relative bg-heritage-900 text-parchment-50 border-b border-brass-500/30 overflow-hidden">
+                <!-- Subtle Classic Architectural Backdrop with Fallbacks -->
+                <div class="absolute inset-0 opacity-20 mix-blend-luminosity pointer-events-none">
+                    <img 
+                        src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1600&q=80" 
+                        alt="London City Architecture" 
+                        class="w-full h-full object-cover"
+                        onerror="this.style.display='none'"
+                    >
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-r from-heritage-950 via-heritage-900/95 to-heritage-900/80"></div>
+
+                <div class="relative max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28 lg:py-32">
+                    <div class="max-w-3xl">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="w-10 h-[1px] bg-brass-400"></span>
+                            <span class="text-xs uppercase tracking-[0.25em] text-brass-300 font-semibold">
+                                Technology • Counsel • Stewardship
+                            </span>
+                        </div>
+
+                        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.14] tracking-tight text-parchment-50 mb-7">
+                            Enduring Digital <br>
+                            <span class="italic font-normal text-brass-300">Solutions for Enterprise.</span>
+                        </h1>
+
+                        <p class="font-serif text-base sm:text-lg leading-relaxed text-parchment-200/90 max-w-2xl mb-10">
+                            GVRR LTD provides bespoke software development, independent information technology consultancy, and dependable facilities management designed to help British and international organisations operate with clarity and strength.
+                        </p>
+
+                        <div class="flex flex-wrap items-center gap-4">
+                            <button onclick="showPage('services')" class="bg-brass-500 hover:bg-brass-400 text-heritage-950 font-sans text-xs sm:text-sm uppercase tracking-[0.18em] font-bold px-8 py-4 border border-brass-300/50 transition-all cursor-pointer">
+                                Explore Our Practice &rarr;
+                            </button>
+                            <button onclick="showPage('contact')" class="bg-transparent hover:bg-heritage-800 text-parchment-100 font-sans text-xs sm:text-sm uppercase tracking-[0.18em] font-semibold px-8 py-4 border border-parchment-300/40 transition-all cursor-pointer">
+                                Make an Enquiry
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editorial Pillars Section -->
+            <div class="max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-24">
+                
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-xs uppercase tracking-[0.25em] text-brass-600 font-bold block mb-3">
+                        Areas of Practice
+                    </span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-semibold text-heritage-900 mb-4">
+                        Technology That Moves Business Forward
+                    </h2>
+                    <div class="w-16 h-[1px] bg-brass-500 mx-auto mb-5"></div>
+                    <p class="font-serif text-sm sm:text-base text-ink-700 leading-relaxed">
+                        We focus on practical, well-architected technology solutions that enable organisations to operate efficiently, securely, and with lasting confidence.
+                    </p>
+                </div>
+
+                <!-- 3-Column Classic Editorial Ledger Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Pillar I -->
+                    <article class="bg-parchment-50 double-frame p-8 sm:p-10 flex flex-col justify-between transition-all hover:border-brass-500">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-parchment-300 pb-4 mb-6">
+                                <span class="font-display italic text-2xl text-brass-600">I.</span>
+                                <span class="text-[11px] uppercase tracking-[0.2em] text-ink-500 font-semibold">SIC 62012</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-semibold text-heritage-900 mb-4">
+                                Software Development
+                            </h3>
+                            <p class="font-sans text-base text-ink-700 leading-relaxed">
+                                Business and domestic software development tailored to specific operational requirements, built with reliability and maintainability at the forefront.
+                            </p>
+                        </div>
+                        <div class="mt-8 pt-4 border-t border-parchment-200">
+                            <button onclick="showPage('services')" class="text-xs uppercase tracking-[0.18em] font-bold text-heritage-800 hover:text-brass-600 transition-colors cursor-pointer">
+                                View Specification &rarr;
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Pillar II -->
+                    <article class="bg-parchment-50 double-frame p-8 sm:p-10 flex flex-col justify-between transition-all hover:border-brass-500">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-parchment-300 pb-4 mb-6">
+                                <span class="font-display italic text-2xl text-brass-600">II.</span>
+                                <span class="text-[11px] uppercase tracking-[0.2em] text-ink-500 font-semibold">SIC 62020</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-semibold text-heritage-900 mb-4">
+                                IT Consultancy
+                            </h3>
+                            <p class="font-sans text-base text-ink-700 leading-relaxed">
+                                Measured, objective information technology counsel designed to assist directors and management teams in making sound infrastructure decisions.
+                            </p>
+                        </div>
+                        <div class="mt-8 pt-4 border-t border-parchment-200">
+                            <button onclick="showPage('services')" class="text-xs uppercase tracking-[0.18em] font-bold text-heritage-800 hover:text-brass-600 transition-colors cursor-pointer">
+                                View Specification &rarr;
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Pillar III -->
+                    <article class="bg-parchment-50 double-frame p-8 sm:p-10 flex flex-col justify-between transition-all hover:border-brass-500">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-parchment-300 pb-4 mb-6">
+                                <span class="font-display italic text-2xl text-brass-600">III.</span>
+                                <span class="text-[11px] uppercase tracking-[0.2em] text-ink-500 font-semibold">SIC 62030</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-semibold text-heritage-900 mb-4">
+                                IT Management
+                            </h3>
+                            <p class="font-sans text-base text-ink-700 leading-relaxed">
+                                Dedicated computer facilities management activities supporting uninterrupted, dependable day-to-day technology operations across your organisation.
+                            </p>
+                        </div>
+                        <div class="mt-8 pt-4 border-t border-parchment-200">
+                            <button onclick="showPage('services')" class="text-xs uppercase tracking-[0.18em] font-bold text-heritage-800 hover:text-brass-600 transition-colors cursor-pointer">
+                                View Specification &rarr;
+                            </button>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- Classic Corporate Statement Strip -->
+                <div class="mt-16 bg-heritage-900 text-parchment-100 double-frame-dark p-8 sm:p-12 flex flex-col lg:flex-row items-center justify-between gap-8">
+                    <div class="max-w-2xl text-center lg:text-left">
+                        <span class="text-xs uppercase tracking-[0.22em] text-brass-300 font-semibold block mb-2">
+                            London Corporate Office
+                        </span>
+                        <p class="font-display text-xl sm:text-2xl text-parchment-50">
+                            Committed to disciplined engineering, clear advisory, and accountable stewardship.
+                        </p>
+                    </div>
+                    <button onclick="showPage('about')" class="shrink-0 border border-brass-400 text-brass-300 hover:bg-brass-400 hover:text-heritage-950 text-xs uppercase tracking-[0.18em] font-bold px-7 py-3.5 transition-colors cursor-pointer">
+                        Company Credentials
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- PAGE 2: SERVICES                                          -->
+        <!-- ========================================================= -->
+        <section id="services" class="page">
+            
+            <!-- Classic Page Title Banner -->
+            <div class="bg-heritage-900 text-parchment-50 border-b border-brass-500/30 py-16 sm:py-20 px-6 sm:px-10 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <span class="text-xs uppercase tracking-[0.25em] text-brass-300 font-semibold block mb-3">
+                        Capabilities &amp; Disciplines
+                    </span>
+                    <h1 class="font-display text-4xl sm:text-5xl font-semibold mb-4">
+                        Our Services
+                    </h1>
+                    <div class="w-14 h-[1px] bg-brass-400 mx-auto mb-5"></div>
+                    <p class="font-serif text-base sm:text-lg text-parchment-200/90 italic">
+                        Technology solutions structured around enduring business requirements.
+                    </p>
+                </div>
+            </div>
+
+            <div class="max-w-6xl mx-auto px-6 sm:px-10 py-20">
+                
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-xs uppercase tracking-[0.25em] text-brass-600 font-bold block mb-2">
+                        Core Expertise
+                    </span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-semibold text-heritage-900 mb-4">
+                        What We Offer
+                    </h2>
+                    <p class="font-sans text-base sm:text-lg text-ink-700 leading-relaxed">
+                        GVRR LTD operates across three principal statutory classifications: software development, information technology consultancy, and computer facilities management.
+                    </p>
+                </div>
+
+                <!-- Structured Editorial Service Dossiers -->
+                <div class="space-y-8">
+                    
+                    <!-- Service 01 -->
+                    <div class="bg-parchment-50 double-frame p-8 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-parchment-300 pb-6 lg:pb-0 lg:pr-8">
+                            <span class="font-display italic text-3xl text-brass-600 block mb-2">Section I</span>
+                            <h3 class="font-display text-2xl font-semibold text-heritage-900 mb-2">
+                                Software Development
+                            </h3>
+                            <span class="inline-block text-xs uppercase tracking-[0.18em] bg-parchment-200 text-heritage-900 px-3 py-1 font-semibold">
+                                SIC Code 62012
+                            </span>
+                        </div>
+                        <div class="lg:col-span-8">
+                            <p class="font-serif text-base text-ink-900 leading-relaxed mb-4">
+                                Business and domestic software development activities, with an emphasis on purposeful, dependable, and maintainable digital applications.
+                            </p>
+                            <p class="font-sans text-base text-ink-700 leading-relaxed">
+                                From bespoke internal workflows to client-facing platforms, every system is engineered with clean architecture, thorough documentation, and long-term operational stability in mind.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Service 02 -->
+                    <div class="bg-parchment-50 double-frame p-8 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-parchment-300 pb-6 lg:pb-0 lg:pr-8">
+                            <span class="font-display italic text-3xl text-brass-600 block mb-2">Section II</span>
+                            <h3 class="font-display text-2xl font-semibold text-heritage-900 mb-2">
+                                IT Consultancy
+                            </h3>
+                            <span class="inline-block text-xs uppercase tracking-[0.18em] bg-parchment-200 text-heritage-900 px-3 py-1 font-semibold">
+                                SIC Code 62020
+                            </span>
+                        </div>
+                        <div class="lg:col-span-8">
+                            <p class="font-serif text-base text-ink-900 leading-relaxed mb-4">
+                                Information technology consultancy activities to support strategic technology planning, structured implementation, and measurable business improvement.
+                            </p>
+                            <p class="font-sans text-base text-ink-700 leading-relaxed">
+                                We advise leadership teams on systems selection, digital modernisation, and operational governance—offering candid, commercially grounded recommendations free from unnecessary complexity.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Service 03 -->
+                    <div class="bg-parchment-50 double-frame p-8 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-parchment-300 pb-6 lg:pb-0 lg:pr-8">
+                            <span class="font-display italic text-3xl text-brass-600 block mb-2">Section III</span>
+                            <h3 class="font-display text-2xl font-semibold text-heritage-900 mb-2">
+                                Computer Facilities Management
+                            </h3>
+                            <span class="inline-block text-xs uppercase tracking-[0.18em] bg-parchment-200 text-heritage-900 px-3 py-1 font-semibold">
+                                SIC Code 62030
+                            </span>
+                        </div>
+                        <div class="lg:col-span-8">
+                            <p class="font-serif text-base text-ink-900 leading-relaxed mb-4">
+                                Computer facilities management activities dedicated to supporting the effective, continuous operation of business technology environments.
+                            </p>
+                            <p class="font-sans text-base text-ink-700 leading-relaxed">
+                                We oversee the routine administration, resilience, and upkeep of core computing infrastructure so that your personnel can focus upon their primary commercial responsibilities.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Consultation Callout -->
+                <div class="mt-16 text-center border-t border-b border-parchment-300 py-12">
+                    <h3 class="font-display text-2xl sm:text-3xl text-heritage-900 mb-3">
+                        Discuss Your Requirements
+                    </h3>
+                    <p class="font-sans text-ink-700 max-w-xl mx-auto mb-7">
+                        To arrange a confidential discussion regarding software development, consultancy, or facilities management, please contact our London office.
+                    </p>
+                    <button onclick="showPage('contact')" class="bg-heritage-900 hover:bg-heritage-800 text-parchment-50 text-xs uppercase tracking-[0.18em] font-bold px-8 py-4 border border-brass-500/50 transition-colors cursor-pointer">
+                        Proceed to Contact &rarr;
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- PAGE 3: ABOUT US                                          -->
+        <!-- ========================================================= -->
+        <section id="about" class="page">
+            
+            <!-- Classic Page Title Banner -->
+            <div class="bg-heritage-900 text-parchment-50 border-b border-brass-500/30 py-16 sm:py-20 px-6 sm:px-10 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <span class="text-xs uppercase tracking-[0.25em] text-brass-300 font-semibold block mb-3">
+                        Corporate Profile &amp; Governance
+                    </span>
+                    <h1 class="font-display text-4xl sm:text-5xl font-semibold mb-4">
+                        About GVRR LTD
+                    </h1>
+                    <div class="w-14 h-[1px] bg-brass-400 mx-auto mb-5"></div>
+                    <p class="font-serif text-base sm:text-lg text-parchment-200/90 italic">
+                        A technology-focused private limited company registered in London, United Kingdom.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Two-Column Editorial Narrative & Principles Ledger -->
+            <div class="max-w-7xl mx-auto px-6 sm:px-10 py-20">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    
+                    <!-- Left Narrative -->
+                    <div class="lg:col-span-7">
+                        <span class="text-xs uppercase tracking-[0.25em] text-brass-600 font-bold block mb-3">
+                            Who We Are
+                        </span>
+                        <h2 class="font-display text-3xl sm:text-4xl font-semibold text-heritage-900 mb-6 leading-snug">
+                            Technology With Purpose and Accountability
+                        </h2>
+                        <div class="w-14 h-[1px] bg-brass-500 mb-7"></div>
+
+                        <div class="space-y-5 font-serif text-base text-ink-900 leading-relaxed">
+                            <p>
+                                GVRR LTD is a UK-registered company focused on software development, information technology consultancy, and computer facilities management.
+                            </p>
+                            <p>
+                                Our aim is to support businesses through practical technology services and enduring digital solutions that directly address their operational needs.
+                            </p>
+                            <p>
+                                We believe in a professional, thoughtful, and forward-looking approach to technology—prioritising clarity of execution, reliability, and long-term value for every client we serve.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right Heritage Charter Box -->
+                    <div class="lg:col-span-5 bg-heritage-900 text-parchment-100 double-frame-dark p-8 sm:p-10">
+                        <span class="text-xs uppercase tracking-[0.22em] text-brass-300 font-semibold block mb-2">
+                            Guiding Principles
+                        </span>
+                        <h3 class="font-display text-2xl sm:text-3xl text-parchment-50 mb-6 pb-4 border-b border-brass-500/30">
+                            Our Approach
+                        </h3>
+
+                        <dl class="space-y-5">
+                            <div>
+                                <dt class="font-display text-lg text-brass-300 font-medium">I. Innovation</dt>
+                                <dd class="font-sans text-sm sm:text-base text-parchment-200/90 mt-1">
+                                    Exploring useful, well-tested technology solutions that deliver genuine utility.
+                                </dd>
+                            </div>
+                            <div class="pt-3 border-t border-parchment-100/10">
+                                <dt class="font-display text-lg text-brass-300 font-medium">II. Professionalism</dt>
+                                <dd class="font-sans text-sm sm:text-base text-parchment-200/90 mt-1">
+                                    Maintaining a responsible, discreet, and commercially focused standard of conduct.
+                                </dd>
+                            </div>
+                            <div class="pt-3 border-t border-parchment-100/10">
+                                <dt class="font-display text-lg text-brass-300 font-medium">III. Quality</dt>
+                                <dd class="font-sans text-sm sm:text-base text-parchment-200/90 mt-1">
+                                    Focusing on thorough craftsmanship and practical, measurable outcomes.
+                                </dd>
+                            </div>
+                            <div class="pt-3 border-t border-parchment-100/10">
+                                <dt class="font-display text-lg text-brass-300 font-medium">IV. Growth</dt>
+                                <dd class="font-sans text-sm sm:text-base text-parchment-200/90 mt-1">
+                                    Supporting enterprises steadily as their operational and technical demands evolve.
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Statutory Registered Company Details Table -->
+            <div class="bg-parchment-200/70 border-t border-b border-parchment-300 py-20 px-6 sm:px-10">
+                <div class="max-w-5xl mx-auto">
+                    <div class="text-center mb-12">
+                        <span class="text-xs uppercase tracking-[0.25em] text-brass-600 font-bold block mb-2">
+                            Companies House Record
+                        </span>
+                        <h2 class="font-display text-3xl sm:text-4xl font-semibold text-heritage-900">
+                            Registered Company Details
+                        </h2>
+                    </div>
+
+                    <div class="bg-parchment-50 double-frame overflow-hidden">
+                        <dl class="divide-y divide-parchment-300">
+                            <div class="px-6 sm:px-10 py-5 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <dt class="text-xs uppercase tracking-[0.18em] font-bold text-ink-500">Company Name</dt>
+                                <dd class="sm:col-span-2 font-serif font-bold text-heritage-900">GVRR LTD</dd>
+                            </div>
+                            <div class="px-6 sm:px-10 py-5 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <dt class="text-xs uppercase tracking-[0.18em] font-bold text-ink-500">Company Number</dt>
+                                <dd class="sm:col-span-2 font-serif text-ink-900">17574073</dd>
+                            </div>
+                            <div class="px-6 sm:px-10 py-5 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <dt class="text-xs uppercase tracking-[0.18em] font-bold text-ink-500">Registered Office Address</dt>
+                                <dd class="sm:col-span-2 font-serif text-ink-900">388 Strone Road, London, England, E12 6TN</dd>
+                            </div>
+                            <div class="px-6 sm:px-10 py-5 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <dt class="text-xs uppercase tracking-[0.18em] font-bold text-ink-500">Jurisdiction</dt>
+                                <dd class="sm:col-span-2 font-serif text-ink-900">United Kingdom (England &amp; Wales)</dd>
+                            </div>
+                            <div class="px-6 sm:px-10 py-5 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <dt class="text-xs uppercase tracking-[0.18em] font-bold text-ink-500">SIC Code 62012</dt>
+                                <dd class="sm:col-span-2 font-sans text-ink-900">Business and domestic software development</dd>
+                            </div>
+                            <div class="px-6 sm:px-10 py-5 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <dt class="text-xs uppercase tracking-[0.18em] font-bold text-ink-500">SIC Code 62020</dt>
+                                <dd class="sm:col-span-2 font-sans text-ink-900">Information technology consultancy activities</dd>
+                            </div>
+                            <div class="px-6 sm:px-10 py-5 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <dt class="text-xs uppercase tracking-[0.18em] font-bold text-ink-500">SIC Code 62030</dt>
+                                <dd class="sm:col-span-2 font-sans text-ink-900">Computer facilities management activities</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- PAGE 4: CONTACT                                           -->
+        <!-- ========================================================= -->
+        <section id="contact" class="page">
+            
+            <!-- Classic Page Title Banner -->
+            <div class="bg-heritage-900 text-parchment-50 border-b border-brass-500/30 py-16 sm:py-20 px-6 sm:px-10 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <span class="text-xs uppercase tracking-[0.25em] text-brass-300 font-semibold block mb-3">
+                        Correspondence &amp; Enquiries
+                    </span>
+                    <h1 class="font-display text-4xl sm:text-5xl font-semibold mb-4">
+                        Contact Us
+                    </h1>
+                    <div class="w-14 h-[1px] bg-brass-400 mx-auto mb-5"></div>
+                    <p class="font-serif text-base sm:text-lg text-parchment-200/90 italic">
+                        We welcome your correspondence regarding how technology can support your business.
+                    </p>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-6 sm:px-10 py-20">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                    
+                    <!-- Left Official Directory Card -->
+                    <div class="lg:col-span-5 bg-heritage-900 text-parchment-100 double-frame-dark p-8 sm:p-10">
+                        <span class="text-xs uppercase tracking-[0.22em] text-brass-300 font-semibold block mb-2">
+                            Registered Office
+                        </span>
+                        <h2 class="font-display text-2xl sm:text-3xl text-parchment-50 mb-8 pb-4 border-b border-brass-500/30">
+                            Get In Touch
+                        </h2>
+
+                        <div class="space-y-6 font-sans">
+                            <div>
+                                <span class="text-xs uppercase tracking-[0.18em] text-brass-300 block mb-1">Company</span>
+                                <p class="font-serif text-base text-parchment-50">GVRR LTD</p>
+                            </div>
+
+                            <div>
+                                <span class="text-xs uppercase tracking-[0.18em] text-brass-300 block mb-1">Electronic Mail</span>
+                                <a href="mailto:Koguruvijendar32@gmail.com" class="font-serif text-base text-parchment-100 hover:text-brass-300 underline decoration-brass-500/50 underline-offset-4 break-all transition-colors">
+                                    Koguruvijendar32@gmail.com
+                                </a>
+                            </div>
+
+                            <div>
+                                <span class="text-xs uppercase tracking-[0.18em] text-brass-300 block mb-1">Telephone</span>
+                                <a href="tel:+447919202299" class="font-serif text-base text-parchment-100 hover:text-brass-300 transition-colors">
+                                    +44 7919 202299
+                                </a>
+                            </div>
+
+                            <div>
+                                <span class="text-xs uppercase tracking-[0.18em] text-brass-300 block mb-1">Registered Address</span>
+                                <address class="not-italic font-serif text-base text-parchment-100 leading-relaxed">
+                                    388 Strone Road,<br>
+                                    London, England,<br>
+                                    E12 6TN
+                                </address>
+                            </div>
+
+                            <div class="pt-4 border-t border-parchment-100/15">
+                                <span class="text-xs uppercase tracking-[0.18em] text-brass-300 block mb-1">Company Number</span>
+                                <p class="font-serif text-base text-parchment-50">17574073</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Formal Correspondence Form -->
+                    <div class="lg:col-span-7 bg-parchment-50 double-frame p-8 sm:p-10">
+                        <span class="text-xs uppercase tracking-[0.22em] text-brass-600 font-bold block mb-2">
+                            Written Enquiry
+                        </span>
+                        <h2 class="font-display text-2xl sm:text-3xl text-heritage-900 mb-6 pb-4 border-b border-parchment-300">
+                            Send an Enquiry
+                        </h2>
+
+                        <!-- Inline Feedback Message Box (No alert()) -->
+                        <div id="formNotice" class="hidden mb-6 p-4 bg-heritage-900 text-parchment-100 border-l-4 border-brass-400 text-sm font-serif">
+                            Opening your default mail client to dispatch your correspondence to GVRR LTD...
+                        </div>
+
+                        <form onsubmit="sendEmail(event)" class="space-y-5">
+                            <div>
+                                <label for="name" class="block text-xs uppercase tracking-[0.16em] font-bold text-ink-700 mb-2">
+                                    Full Name
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    placeholder="e.g. Mr. J. Harrison" 
+                                    required
+                                    class="w-full bg-white border border-parchment-300 focus:border-heritage-800 focus:outline-none px-4 py-3.5 text-ink-900 font-sans text-base transition-colors"
+                                >
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-xs uppercase tracking-[0.16em] font-bold text-ink-700 mb-2">
+                                    Email Address
+                                </label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    placeholder="name@company.co.uk" 
+                                    required
+                                    class="w-full bg-white border border-parchment-300 focus:border-heritage-800 focus:outline-none px-4 py-3.5 text-ink-900 font-sans text-base transition-colors"
+                                >
+                            </div>
+
+                            <div>
+                                <label for="subject" class="block text-xs uppercase tracking-[0.16em] font-bold text-ink-700 mb-2">
+                                    Subject of Enquiry
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="subject" 
+                                    placeholder="Software Development / IT Consultancy" 
+                                    required
+                                    class="w-full bg-white border border-parchment-300 focus:border-heritage-800 focus:outline-none px-4 py-3.5 text-ink-900 font-sans text-base transition-colors"
+                                >
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-xs uppercase tracking-[0.16em] font-bold text-ink-700 mb-2">
+                                    Message
+                                </label>
+                                <textarea 
+                                    id="message" 
+                                    rows="5" 
+                                    placeholder="Please outline the nature of your enquiry..." 
+                                    required
+                                    class="w-full bg-white border border-parchment-300 focus:border-heritage-800 focus:outline-none px-4 py-3.5 text-ink-900 font-sans text-base resize-y transition-colors"
+                                ></textarea>
+                            </div>
+
+                            <div class="pt-2">
+                                <button type="submit" class="bg-heritage-900 hover:bg-heritage-800 text-parchment-50 text-xs uppercase tracking-[0.2em] font-bold px-8 py-4 border border-brass-500/50 transition-colors cursor-pointer">
+                                    Dispatch Message &rarr;
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CLASSIC CORPORATE FOOTER -->
+    <footer class="bg-heritage-950 text-parchment-300 border-t-2 border-brass-500/40">
+        <div class="max-w-7xl mx-auto px-6 sm:px-10 py-14">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-parchment-100/10">
+                
+                <div>
+                    <div class="font-display text-2xl font-semibold tracking-[0.14em] text-parchment-50 mb-3">
+                        GVRR <span class="text-brass-300 font-normal">LTD</span>
+                    </div>
+                    <p class="font-serif text-sm text-parchment-300/85 leading-relaxed">
+                        Software Development, Information Technology Consultancy, and Computer Facilities Management.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs uppercase tracking-[0.2em] text-brass-300 font-bold mb-4">
+                        Navigation
+                    </h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><button onclick="showPage('home')" class="hover:text-brass-300 transition-colors cursor-pointer">Home</button></li>
+                        <li><button onclick="showPage('services')" class="hover:text-brass-300 transition-colors cursor-pointer">Services</button></li>
+                        <li><button onclick="showPage('about')" class="hover:text-brass-300 transition-colors cursor-pointer">About Us</button></li>
+                        <li><button onclick="showPage('contact')" class="hover:text-brass-300 transition-colors cursor-pointer">Contact</button></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs uppercase tracking-[0.2em] text-brass-300 font-bold mb-4">
+                        Registered Office
+                    </h4>
+                    <p class="text-sm leading-relaxed text-parchment-300/90">
+                        388 Strone Road, London, England, E12 6TN<br>
+                        United Kingdom<br>
+                        <span class="text-brass-300/90 block mt-2">Company No. 17574073</span>
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-parchment-300/75 tracking-wider">
+                <p>&copy; <span id="year"></span> GVRR LTD. All Rights Reserved.</p>
+                <p>Registered in England &amp; Wales</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MULTI-PAGE NAVIGATION & CORRESPONDENCE SCRIPT -->
+    <script>
+        /* Switch between pages and update active state & URL hash */
+        function showPage(pageId, button) {
+            const targetPage = document.getElementById(pageId);
+            if (!targetPage) return;
+
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            targetPage.classList.add('active');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (button && btn === button) {
+                    btn.classList.add('active');
+                } else if (!button && btn.getAttribute('data-page') === pageId) {
+                    btn.classList.add('active');
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            try {
+                history.pushState({ page: pageId }, '', '#' + pageId);
+            } catch (e) {
+                // Fallback for sandboxed iframe environments
+            }
+        }
+
+        /* Handle browser Back / Forward buttons */
+        window.addEventListener('popstate', function () {
+            const pageId = location.hash.replace('#', '') || 'home';
+            if (document.getElementById(pageId)) {
+                showPageWithoutHistory(pageId);
+            }
+        });
+
+        function showPageWithoutHistory(pageId) {
+            const targetPage = document.getElementById(pageId);
+            if (!targetPage) return;
+
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            targetPage.classList.add('active');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-page') === pageId);
+            });
+
+            window.scrollTo(0, 0);
+        }
+
+        /* Dispatch Contact Form via mailto */
+        function sendEmail(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            const notice = document.getElementById('formNotice');
+            if (notice) {
+                notice.classList.remove('hidden');
+            }
+
+            const body =
+                "Name: " + name + "%0D%0A" +
+                "Email: " + email + "%0D%0A%0D%0A" +
+                "Message:%0D%0A" + encodeURIComponent(message);
+
+            const mailto =
+                "mailto:Koguruvijendar32@gmail.com" +
+                "?subject=" + encodeURIComponent(subject) +
+                "&body=" + body;
+
+            window.location.href = mailto;
+        }
+
+        /* Set current copyright year */
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        /* Open matching section if loaded with a URL hash */
+        const initialPage = location.hash.replace('#', '');
+        if (initialPage && document.getElementById(initialPage)) {
+            showPageWithoutHistory(initialPage);
+        }
+    </script>
+
+</body>
+</html>
